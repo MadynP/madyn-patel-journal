@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Madyn Patel | Investing journal</title>
+<meta name="description" content="Madyn Patel's investing journal: philosophy, monthly performance against a benchmark, and write-ups of every position.">
+<meta property="og:title" content="Madyn Patel | Investing journal">
+<meta property="og:description" content="How I think about risk, what I buy and why, and what I learn when I get it wrong.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='black'/%3E%3Ctext x='16' y='24' font-size='22' font-weight='900' text-anchor='middle' fill='white' font-family='Arial,sans-serif'%3EM%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..600&display=swap" rel="stylesheet">
+
+<!--
+  HOW TO EDIT THIS SITE
+  1. Scroll to the FIRST <script> block at the bottom. It holds your performance
+     numbers and journal entries. That is the only place you need to edit for
+     day-to-day updates.
+  2. Replace the sample content, then set `sample: false` in PERFORMANCE and
+     remove `sample: true` from each journal entry.
+  3. The black "Draft" bar at the top of the page disappears on its own once
+     no placeholder text is left. Do not publish while it is showing.
+  4. Static text (hero line, philosophy, methodology note, "Updated" date) is
+     plain HTML further down. Search for "EDIT" to find it.
+-->
+
+<style>
+  :root {
+    --bg: #ffffff;
+    --ink: #000000;
+    --muted: #595959;
+    --rule: #d9d9d9;
+    --pos: #0b6b3a;
+    --neg: #b3261e;
+    --sans: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+    color-scheme: light dark;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #000000;
+      --ink: #f2f2f2;
+      --muted: #a3a3a3;
+      --rule: #2b2b2b;
+      --pos: #4cc38a;
+      --neg: #ff7b72;
+    }
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 400 1.125rem/1.65 var(--serif);
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  a:focus-visible, summary:focus-visible {
+    outline: 3px solid var(--ink);
+    outline-offset: 4px;
+  }
+  .wrap {
+    max-width: 72rem;
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 4vw, 3rem);
+  }
+  .sr {
+    position: absolute; width: 1px; height: 1px; overflow: hidden;
+    clip: rect(0 0 0 0); white-space: nowrap;
+  }
+  .skip {
+    position: absolute; left: 1rem; top: -4rem; z-index: 10;
+    background: var(--ink); color: var(--bg);
+    font: 600 1rem var(--sans); padding: .6rem 1rem;
+  }
+  .skip:focus { top: 1rem; }
+
+  /* Draft banner (added by script while placeholders remain) */
+  .draft {
+    background: var(--ink); color: var(--bg);
+    font: 600 .95rem/1.4 var(--sans);
+    padding: .75rem clamp(1.25rem, 4vw, 3rem);
+    text-align: center;
+  }
+
+  /* Top bar */
+  .top {
+    display: flex; flex-wrap: wrap; justify-content: space-between;
+    align-items: baseline; gap: .5rem 2rem;
+    padding-block: 1.5rem;
+    font: 600 .95rem var(--sans);
+  }
+  .top nav { display: flex; flex-wrap: wrap; gap: .5rem 1.75rem; }
+  .top nav a { text-decoration: none; }
+  .top nav a:hover { text-decoration: underline; text-underline-offset: .25em; }
+
+  /* Hero */
+  .hero { padding-block: clamp(2.5rem, 6vw, 4.5rem) clamp(3.5rem, 8vw, 6.5rem); }
+  .name {
+    margin: 0;
+    font: 900 clamp(4.25rem, 19vw, 13rem)/.84 var(--sans);
+    letter-spacing: -.035em;
+    text-transform: uppercase;
+  }
+  .name span { display: block; }
+  .lede {
+    margin: 2.5rem 0 0;
+    max-width: 34rem;
+    font-size: clamp(1.25rem, 2.4vw, 1.6rem);
+    line-height: 1.4;
+  }
+  .hero-meta {
+    margin: 1.25rem 0 0;
+    font: 500 .95rem var(--sans);
+    color: var(--muted);
+  }
+
+  /* Sections: narrow title column on the left, content on the right (as on the CV) */
+  .section { border-top: 1px solid var(--rule); }
+  .split {
+    display: grid;
+    grid-template-columns: 11rem minmax(0, 1fr);
+    column-gap: clamp(2rem, 6vw, 5rem);
+    row-gap: 1.5rem;
+    padding-block: clamp(3.5rem, 8vw, 6rem);
+  }
+  .side { align-self: start; position: sticky; top: 1.5rem; }
+  .side h2 { margin: 0; font: 800 1.6rem/1.1 var(--sans); letter-spacing: -.01em; }
+  .side h2::after {
+    content: ""; display: block;
+    width: 3rem; height: 6px; margin-top: 1rem;
+    background: var(--ink);
+  }
+  @media (max-width: 760px) {
+    .split { grid-template-columns: 1fr; }
+    .side { position: static; }
+  }
+
+  .placeholder { color: var(--muted); font-style: italic; }
+  .empty { color: var(--muted); font-style: italic; margin: 0; }
+
+  /* Philosophy */
+  .principles { margin: 0; display: grid; gap: 2.25rem; max-width: 40rem; }
+  .principles dt { font: 700 1.25rem/1.25 var(--sans); margin-bottom: .4rem; }
+  .principles dd { margin: 0; }
+
+  /* Performance */
+  .stats { display: flex; flex-wrap: wrap; gap: 2rem 3.5rem; margin: 0 0 2.5rem; }
+  .stat { display: flex; flex-direction: column; }
+  .stat dd {
+    order: 1; margin: 0;
+    font: 800 clamp(2.4rem, 6vw, 3.75rem)/1 var(--sans);
+    letter-spacing: -.02em;
+    font-variant-numeric: tabular-nums;
+  }
+  .stat dt {
+    order: 2; margin-top: .5rem; max-width: 14rem;
+    font: 500 .95rem/1.4 var(--sans); color: var(--muted);
+  }
+  .pos { color: var(--pos); }
+  .neg { color: var(--neg); }
+
+  .legend { display: flex; flex-wrap: wrap; gap: .25rem 1.75rem; margin: 0 0 .75rem; font: 500 .95rem var(--sans); }
+  .key { display: inline-block; width: 1.75rem; border-top: 3px solid var(--ink); vertical-align: middle; margin-right: .5rem; }
+  .key.bench { border-top: 3px dashed var(--muted); }
+  .key.bench2 { border-top: 3px dotted var(--muted); }
+
+  .chart svg { display: block; width: 100%; height: auto; }
+  .gl { stroke: var(--rule); stroke-width: 1; }
+  .zero { stroke: var(--ink); stroke-width: 1; }
+  .ax { font: 500 12px var(--sans); fill: var(--muted); }
+  .line-p { fill: none; stroke: var(--ink); stroke-width: 3; stroke-linejoin: round; stroke-linecap: round; }
+  .line-b { fill: none; stroke: var(--muted); stroke-width: 2; stroke-dasharray: 6 5; stroke-linejoin: round; }
+  .line-b2 { fill: none; stroke: var(--muted); stroke-width: 2; stroke-dasharray: 1 4; stroke-linecap: round; stroke-linejoin: round; }
+  .dot { fill: var(--bg); stroke: var(--ink); stroke-width: 2.5; }
+  .ends { opacity: 0; transition: opacity .4s ease; }
+  .ends.show { opacity: 1; }
+  .end { font: 700 13px var(--sans); fill: var(--ink); }
+  .end.b { fill: var(--muted); }
+
+  .table-wrap { overflow-x: auto; margin-top: 2.5rem; }
+  table { border-collapse: collapse; width: 100%; min-width: 26rem; font: 500 1rem var(--sans); font-variant-numeric: tabular-nums; }
+  th, td { padding: .7rem 0 .7rem 1rem; text-align: right; border-bottom: 1px solid var(--rule); }
+  th:first-child, td:first-child { text-align: left; padding-left: 0; }
+  thead th { font-weight: 700; border-bottom: 2px solid var(--ink); }
+  tbody th { font-weight: 500; }
+  tfoot th, tfoot td { font-weight: 800; border-top: 2px solid var(--ink); border-bottom: 0; }
+
+  .note { font-size: .95rem; color: var(--muted); max-width: 40rem; margin: 1.5rem 0 0; }
+  .sample-note { font: 600 .95rem/1.5 var(--sans); border: 2px solid var(--ink); padding: .75rem 1rem; margin: 0 0 2rem; max-width: 40rem; }
+
+  /* Journal */
+  .entries { border-top: 2px solid var(--ink); }
+  .entry { border-bottom: 1px solid var(--rule); }
+  .entry > summary {
+    list-style: none; cursor: pointer;
+    display: grid; grid-template-columns: 1fr auto 1.25rem;
+    gap: .2rem 1.25rem; align-items: baseline;
+    padding: 1.25rem 0;
+  }
+  .entry > summary::-webkit-details-marker { display: none; }
+  .e-name { grid-column: 1; font: 700 1.3rem/1.25 var(--sans); }
+  .e-tick { font-weight: 500; color: var(--muted); margin-left: .5rem; }
+  .e-meta { grid-column: 1; font: 500 .95rem var(--sans); color: var(--muted); }
+  .e-result {
+    grid-column: 2; grid-row: 1 / span 2;
+    font: 800 1.5rem var(--sans); font-variant-numeric: tabular-nums;
+  }
+  .e-toggle { grid-column: 3; grid-row: 1 / span 2; position: relative; width: 1rem; height: 1rem; align-self: center; }
+  .e-toggle::before, .e-toggle::after {
+    content: ""; position: absolute; left: 0; right: 0; top: calc(50% - 1px);
+    height: 2px; background: var(--ink); transition: transform .2s ease;
+  }
+  .e-toggle::after { transform: rotate(90deg); }
+  .entry[open] .e-toggle::after { transform: rotate(0deg); }
+  .tag {
+    display: inline-block; margin-left: .6rem; padding: .05rem .45rem;
+    border: 1px solid currentColor; color: var(--muted);
+    font: 600 .75rem/1.4 var(--sans); vertical-align: .15em;
+  }
+  .e-body { padding: 0 0 2rem; max-width: 42rem; }
+  .e-body dl { display: grid; grid-template-columns: 7.5rem 1fr; gap: 1.25rem 1.5rem; margin: 0; }
+  .e-body dt { font: 700 .95rem/1.75 var(--sans); }
+  .e-body dd { margin: 0; }
+  .entry[data-placeholder] .e-body dd { color: var(--muted); font-style: italic; }
+  @media (max-width: 600px) {
+    .e-body dl { grid-template-columns: 1fr; gap: .15rem; }
+    .e-body dd { margin-bottom: 1.1rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .e-toggle::before, .e-toggle::after, .ends { transition: none; }
+  }
+
+  /* Contact */
+  .email {
+    display: inline-block;
+    font: 700 clamp(1.4rem, 4vw, 2.25rem)/1.2 var(--sans);
+    text-decoration: underline; text-decoration-thickness: 4px; text-underline-offset: .2em;
+    word-break: break-word;
+  }
+  .legal { font-size: .9rem; color: var(--muted); max-width: 40rem; margin: 2rem 0 0; }
+
+  .foot { border-top: 1px solid var(--rule); padding-block: 1.5rem; font: 500 .9rem var(--sans); color: var(--muted); }
+</style>
+</head>
+
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top wrap">
+  <span>Investing journal</span>
+  <nav aria-label="Sections">
+    <a href="#philosophy">Philosophy</a>
+    <a href="#performance">Performance</a>
+    <a href="#journal">Journal</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<main id="main">
+
+  <section class="hero wrap" id="top" aria-labelledby="name">
+    <h1 class="name" id="name"><span>Madyn</span><span>Patel</span></h1>
+    <!-- EDIT: one-line summary -->
+    <p class="lede">How I think about risk, what I buy and why, and what I learn when I get it wrong.</p>
+    <!-- EDIT: update the month when you add new returns -->
+    <p class="hero-meta">BSc Economics &amp; Finance student, University of Surrey. Updated September 2026.</p>
+  </section>
+
+  <!-- PHILOSOPHY -->
+  <section class="section" id="philosophy" aria-labelledby="h-philosophy">
+    <div class="wrap split">
+      <div class="side"><h2 id="h-philosophy">Philosophy</h2></div>
+      <dl class="principles">
+        <div>
+          <dt>Time horizon</dt>
+          <dd>Since starting my investing journey in 2024, my goal was to invest in long-duration structural trends, allocating capital towards innovation and the critical bottlenecks that define where the world is heading. Therefore, the ideal hold time would be between 3&ndash;5 years before changing direction.
+            <br><br>
+            In the words of Warren Buffett, &ldquo;If you aren&rsquo;t willing to own a stock for 10 years, don&rsquo;t even think about owning it for 10 minutes.&rdquo;
+          </dd>
+        </div>
+        <div>
+          <dt>Risk</dt>
+          <dd>Positions are reviewed multiple times a week, and I exit when the long-term thesis no longer makes sense, whether the moat erodes, geopolitical shifts alter the landscape, or the underlying bottleneck is resolved. To prevent over-exposure, my largest single-firm position is capped at 5% of my portfolio.
+            <br><br>
+            Position size is weighted between conviction, risk, and the durability of the underlying trend, supported by analysis of the company's financial health using cash flow assessment, ratio analysis, and other KPIs.
+          </dd>
+        </div>
+        <div>
+          <dt>What I look for</dt>
+          <dd>I am currently invested in AI compute/memory, biotech, precision medicine, energy transition, grid modernisation, and digital infrastructure.
+            <br><br>
+            Each firm I hold in those sectors solves a critical bottleneck, such as therapeutic innovation and drug discovery, clean hydrogen and energy storage, or memory bandwidth, because bottlenecks define where value must accrue. The firms are supported by durable moats built on IP, scientific capability, or manufacturing complexity, and must display healthy balance sheets and disciplined capital allocation that supports long-term compounding growth.
+            <br><br>
+            I also assess the leadership team, to see whether management is aligned with long-term value creation and understands the structural forces shaping their industry.
+          </dd>
+        </div>
+        <div>
+          <dt>Discipline</dt>
+          <dd>I maintain discipline by writing an investment thesis before entering a position, based on the criteria above, and by setting out the bull and bear case to anchor decisions in logic rather than emotion. I set review dates to evaluate the thesis, rather than falling into the trap of market noise or sentiment swings. This keeps every decision grounded and deliberate.</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- PERFORMANCE -->
+  <section class="section" id="performance" aria-labelledby="h-performance">
+    <div class="wrap split">
+      <div class="side"><h2 id="h-performance">Performance</h2></div>
+      <div>
+        <div id="perf-sample"></div>
+        <div id="perf-stats"></div>
+        <div id="perf-legend"></div>
+        <div class="chart" id="perf-chart"></div>
+        <div class="table-wrap" id="perf-table"></div>
+        <noscript><p class="empty">This section needs JavaScript to show the chart and table.</p></noscript>
+        <!-- EDIT: describe exactly how you calculate returns -->
+        <p class="note">Monthly returns are calculated from portfolio value at each month end, before fees, and are not adjusted for deposits or withdrawals made during the month.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOURNAL -->
+  <section class="section" id="journal" aria-labelledby="h-journal">
+    <div class="wrap split">
+      <div class="side"><h2 id="h-journal">Journal</h2></div>
+      <div>
+        <div class="entries" id="journal-list"></div>
+        <noscript><p class="empty">This section needs JavaScript to show the journal entries.</p></noscript>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section" id="contact" aria-labelledby="h-contact">
+    <div class="wrap split">
+      <div class="side"><h2 id="h-contact">Contact</h2></div>
+      <div>
+        <a class="email" href="mailto:madynpatel@gmail.com">madynpatel@gmail.com</a>
+        <p class="legal">This site is a personal record of my own investing, published to show how I think and learn. It is not investment advice or a recommendation to buy or sell any security. Past performance is not a guide to future returns.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">&copy; 2026 Madyn Patel</div>
+</footer>
+
+<!-- ============================================================
+     EDIT THIS BLOCK: your numbers and journal entries live here.
+     ============================================================ -->
+<script>
+const SITE = {
+  // Up to two benchmarks. Each key (e.g. "ftse") must match the field name
+  // used in every row of PERFORMANCE.months below.
+  benchmarks: {
+    ftse:  "FTSE 100",
+    sp500: "S&P 500"
+  }
+};
+
+const PERFORMANCE = {
+  sample: false,                       // set to false once these are your real returns
+  // One row per month. Values are that month's return in percent.
+  months: [
+    { month: "May 2026", portfolio:  18.4, ftse:  0.29, sp500:  5.15 },
+    { month: "Jun 2026", portfolio:  -7.6, ftse:  0.84, sp500: -2.05 },
+    { month: "Jul 2026", portfolio: -10.9, ftse:  4.27, sp500:  0.00 },
+    { month: "Aug 2026", portfolio:  -8.3, ftse: -1.63, sp500:  3.52 },
+    { month: "Sep 2026", portfolio:  21.2, ftse: -1.41, sp500: -0.20 }
+  ]
+};
+
+// One object per position. Newest first. Delete `sample: true` on real entries.
+// Leave out a field (for example `lesson`) and it will not be shown.
+const JOURNAL = [
+  {
+    name: "Moderna",
+    ticker: "MRNA",
+    opened: "Jul 2026",
+    closed: null,
+    result: "+178%",
+    thesis: "Moderna is a high-growth biotechnology platform built around mRNA, with potential to diversify beyond COVID into influenza, RSV, combination vaccines and oncology. At entry, I believed the market was primarily pricing Moderna as a declining COVID-vaccine business while underappreciating the value of its broader pipeline and the potential for an mRNA influenza vaccine to establish a second commercial franchise.",
+    entry: "Entered on 1 July 2026 at $73, sizing the position at 5% of the portfolio against an initial valuation range of $100\u2013125 over a 3\u20135 year horizon. Given negative earnings, I valued Moderna on forward-looking revenue and pipeline potential rather than P/E. The immediate catalyst I was watching was the mRNA influenza programme, which I viewed as validation of the broader platform's ability to diversify beyond COVID.",
+    risk: "The principal risk is that pipeline investment fails to translate into sustainable earnings and free cash flow: in Q2 2026 Moderna generated just $145m of revenue against a $0.8bn GAAP net loss, highlighting the gap between current performance and the cash flows priced into the valuation. My sell discipline is fundamental rather than price-based \u2014 I would exit if the pipeline's probability of success deteriorates materially, cash burn becomes unsustainable, or there is no credible path to profitability.",
+    outcome: "Still open. Moderna has materially exceeded my initial $100\u2013125 valuation range, trading at $203 for a return of +178% (+$130/share). During the re-rating I trimmed the position back to 5% of the portfolio at around $170, crystallising part of the gain while keeping meaningful exposure to the longer-term thesis. The case has since broadened beyond my original influenza catalyst, with positive developments in personalised oncology adding a further source of long-term value, though Moderna remains loss-making and the valuation increasingly depends on successful pipeline execution. I remain invested with a 3\u20135 year horizon and a revised valuation range of $220\u2013250."
+  },
+  {
+    name: "Ciena",
+    ticker: "CIEN",
+    opened: "May 2026",
+    closed: null,
+    result: "\u221229%",
+    thesis: "Ciena is a leading provider of high-capacity optical networking, positioned to benefit from the structural growth in AI, cloud and data-centre interconnect demand. Its pure-play focus, established relationships with hyperscalers and differentiated coherent-optics technology provide a defensible position as networks upgrade for greater bandwidth and lower latency. I see Ciena as a long-duration infrastructure play rather than a short-term AI trade.",
+    entry: "Entered on 7 May 2026 at $524, sizing the position at 2.2% of the portfolio against an initial valuation range of $600\u2013700 over a 3\u20135 year horizon, valuing the business on forward revenue, earnings and free-cash-flow potential. Ciena had already shown strong momentum, with Q1 FY2026 revenue up 33% year-over-year and a backlog of approximately $7bn. I subsequently averaged down as the share price weakened, bringing my cost basis to $486.",
+    risk: "The principal risks are concentration in large cloud customers, sensitivity to hyperscaler capital-spending cycles, and Ciena's ability to convert its substantial backlog into recognised revenue \u2014 particularly relevant given that two customers represented 34% of Q2 revenue. Supply-chain constraints could also delay deliveries and prevent the company from fully monetising demand. My sell discipline is fundamental: I would exit if Ciena loses its structural advantage in high-capacity optical networking, if hyperscaler demand materially deteriorates, or if persistent supply constraints prevent the backlog from converting into revenue.",
+    outcome: "Still open. The position is currently down approximately 29% from my average cost, at around $346, but I have deliberately continued to hold and average down because the underlying thesis has not been invalidated. Recent results remain supportive: Q3 FY2026 revenue reached $1.67bn, up 37%, while adjusted EPS grew 215% year-over-year. Ciena has also set FY2029 targets of approximately 30% revenue CAGR, 32\u201335% adjusted operating margins and 20% free-cash-flow margins, reinforcing the long-term growth thesis. My revised valuation range is $450\u2013580, reflecting long-term earnings and free-cash-flow potential rather than short-term sentiment, and I'm willing to ride out volatility while the fundamentals keep improving."
+  }
+];
+</script>
+
+<!-- Rendering code: you should not need to change anything below. -->
+<script>
+(() => {
+  "use strict";
+
+  const MINUS = "\u2212";
+  const REDUCED = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const $ = (id) => document.getElementById(id);
+
+  /* ---------- helpers ---------- */
+  function el(tag, props, ...kids) {
+    const n = document.createElement(tag);
+    for (const [k, v] of Object.entries(props || {})) {
+      if (v === false || v == null) continue;
+      if (k === "class") n.className = v;
+      else if (v === true) n.setAttribute(k, "");
+      else n.setAttribute(k, v);
+    }
+    for (const c of kids.flat()) {
+      if (c == null || c === false) continue;
+      n.append(c.nodeType ? c : document.createTextNode(c));
+    }
+    return n;
+  }
+  function svgEl(tag, attrs, ...kids) {
+    const n = document.createElementNS("http://www.w3.org/2000/svg", tag);
+    for (const [k, v] of Object.entries(attrs || {})) n.setAttribute(k, v);
+    for (const c of kids) if (c != null) n.append(c.nodeType ? c : document.createTextNode(c));
+    return n;
+  }
+  const r1 = (v) => { const r = Math.round(v * 10) / 10; return r === 0 ? 0 : r; };
+  const pct = (v) => { const r = r1(v); return (r > 0 ? "+" : r < 0 ? MINUS : "") + Math.abs(r).toFixed(1) + "%"; };
+  const pts = (v) => { const r = r1(v); return (r > 0 ? "+" : r < 0 ? MINUS : "") + Math.abs(r).toFixed(1) + " pts"; };
+  const tone = (v) => { const r = r1(v); return r > 0 ? "pos" : r < 0 ? "neg" : ""; };
+  const toneFromText = (s) => tone(parseFloat(String(s).replace(/[\u2212\u2013]/g, "-")));
+
+  function cumulative(rows, key) {
+    let g = 1; const out = [0];
+    for (const r of rows) { g *= 1 + r[key] / 100; out.push((g - 1) * 100); }
+    return out;
+  }
+  function niceTicks(lo, hi) {
+    const span = hi - lo || 1;
+    const raw = span / 4;
+    const mag = Math.pow(10, Math.floor(Math.log10(raw)));
+    const step = [1, 2, 2.5, 5, 10].map((s) => s * mag).find((s) => s >= raw) || 10 * mag;
+    const start = Math.floor(lo / step + 1e-9) * step;
+    const end = Math.ceil(hi / step - 1e-9) * step;
+    const ticks = [];
+    for (let v = start; v <= end + 1e-9; v += step) ticks.push(Math.round(v * 1000) / 1000);
+    return { ticks, lo: start, hi: end };
+  }
+
+  /* ---------- performance ---------- */
+  let revealed = false;
+  let lastW = 0;
+
+  // Ordered list of benchmarks actually present in SITE.benchmarks, each
+  // paired with a chart line style so portfolio/FTSE/S&P stay visually distinct.
+  const BENCH_STYLES = [
+    { cls: "line-b",  keyCls: "bench" },
+    { cls: "line-b2", keyCls: "bench2" }
+  ];
+  function benchList() {
+    return Object.keys(SITE.benchmarks || {}).map((key, i) => ({
+      key, label: SITE.benchmarks[key], ...BENCH_STYLES[i % BENCH_STYLES.length]
+    }));
+  }
+
+  function renderPerformance() {
+    const rows = PERFORMANCE.months || [];
+    const benches = benchList();
+    const sampleHost = $("perf-sample");
+    const stats = $("perf-stats");
+    const legend = $("perf-legend");
+    const chart = $("perf-chart");
+    const table = $("perf-table");
+    [sampleHost, stats, legend, chart, table].forEach((n) => n.replaceChildren());
+
+    if (PERFORMANCE.sample) {
+      sampleHost.append(el("p", { class: "sample-note", "data-placeholder": true },
+        "Sample data. Replace the months in PERFORMANCE at the top of the script with your own returns, then set sample to false."));
+    }
+    if (rows.length < 2) {
+      chart.append(el("p", { class: "empty" }, "Add at least two months of returns to PERFORMANCE to see the chart."));
+      return;
+    }
+
+    const P = cumulative(rows, "portfolio");
+    const pEnd = P[P.length - 1];
+    const benchEnds = benches.map((b) => ({ ...b, series: cumulative(rows, b.key), end: 0 }));
+    benchEnds.forEach((b) => { b.end = b.series[b.series.length - 1]; });
+
+    // Headline stats: portfolio return, each benchmark's return, then how far ahead/behind each.
+    const headline = [el("div", { class: "stat" },
+      el("dt", {}, "Portfolio return over " + rows.length + " months"),
+      el("dd", { class: tone(pEnd) }, pct(pEnd)))];
+    benchEnds.forEach((b) => headline.push(el("div", { class: "stat" },
+      el("dt", {}, b.label + ", same period"), el("dd", {}, pct(b.end)))));
+    benchEnds.forEach((b) => {
+      const d = pEnd - b.end;
+      headline.push(el("div", { class: "stat" },
+        el("dt", {}, (d >= 0 ? "Ahead of " : "Behind ") + b.label),
+        el("dd", { class: tone(d) }, pts(d))));
+    });
+    stats.append(el("dl", { class: "stats" }, headline));
+
+    // Legend
+    const legendKeys = [el("span", {}, el("i", { class: "key" }), "My portfolio")];
+    benches.forEach((b) => legendKeys.push(el("span", {}, el("i", { class: "key " + b.keyCls }), b.label)));
+    legend.append(el("p", { class: "legend" }, legendKeys));
+
+    // Table: Month | Portfolio | each benchmark's monthly return
+    const head = [el("th", { scope: "col" }, "Month"), el("th", { scope: "col" }, "Portfolio")];
+    benches.forEach((b) => head.push(el("th", { scope: "col" }, b.label)));
+    const body = el("tbody");
+    rows.forEach((r) => {
+      const cells = [el("th", { scope: "row" }, r.month), el("td", { class: tone(r.portfolio) }, pct(r.portfolio))];
+      benches.forEach((b) => cells.push(el("td", {}, pct(r[b.key]))));
+      body.append(el("tr", {}, cells));
+    });
+    const footCells = [el("th", { scope: "row" }, "Cumulative"), el("td", { class: tone(pEnd) }, pct(pEnd))];
+    benchEnds.forEach((b) => footCells.push(el("td", {}, pct(b.end))));
+    table.append(el("table", {},
+      el("caption", { class: "sr" }, "Monthly returns and cumulative return, portfolio versus " + benches.map((b) => b.label).join(" and ")),
+      el("thead", {}, el("tr", {}, head)),
+      body,
+      el("tfoot", {}, el("tr", {}, footCells))
+    ));
+
+    drawChart();
+  }
+
+  function drawChart() {
+    const host = $("perf-chart");
+    const rows = PERFORMANCE.months;
+    const n = rows.length + 1;
+    const benches = benchList();
+    const P = cumulative(rows, "portfolio");
+    const series = benches.map((b) => ({ ...b, vals: cumulative(rows, b.key) }));
+    const allVals = [P, ...series.map((s) => s.vals)].flat();
+
+    const W = Math.max(300, Math.floor(host.clientWidth));
+    const H = Math.round(Math.min(400, Math.max(260, W * 0.44)));
+    lastW = W;
+    const m = { t: 16, r: W < 520 ? 54 : 64, b: 34, l: 46 };
+
+    const { ticks, lo, hi } = niceTicks(Math.min(0, ...allVals), Math.max(0, ...allVals));
+    const x = (i) => m.l + i * (W - m.l - m.r) / (n - 1);
+    const y = (v) => m.t + (hi - v) / (hi - lo) * (H - m.t - m.b);
+    const path = (arr) => arr.map((v, i) => (i ? "L" : "M") + x(i).toFixed(1) + " " + y(v).toFixed(1)).join(" ");
+
+    const pEnd = P[n - 1];
+    const benchNames = benches.map((b) => b.label).join(" and ");
+    const svg = svgEl("svg", { viewBox: "0 0 " + W + " " + H, width: W, height: H, role: "img", "aria-labelledby": "chart-title chart-desc" });
+    svg.append(
+      svgEl("title", { id: "chart-title" }, "Cumulative return: portfolio versus " + benchNames),
+      svgEl("desc", { id: "chart-desc" }, "After " + rows.length + " months the portfolio is at " + pct(pEnd) + ". Monthly figures for the portfolio and each benchmark are in the table below."),
+      svgEl("defs", {}, svgEl("clipPath", { id: "reveal" }, svgEl("rect", { id: "reveal-rect", x: 0, y: 0, width: 0, height: H })))
+    );
+
+    // gridlines and y labels
+    ticks.forEach((t) => {
+      svg.append(svgEl("line", { class: t === 0 ? "zero" : "gl", x1: m.l, x2: W - m.r, y1: y(t), y2: y(t) }));
+      svg.append(svgEl("text", { class: "ax", x: m.l - 10, y: y(t) + 4, "text-anchor": "end" },
+        (t > 0 ? "+" : t < 0 ? MINUS : "") + Math.abs(t) + "%"));
+    });
+
+    // x labels
+    const labels = ["Start"].concat(rows.map((r) => r.month.split(" ")[0]));
+    const every = Math.max(1, Math.ceil(n / Math.max(2, Math.floor((W - m.l - m.r) / 52))));
+    labels.forEach((l, i) => {
+      if (i % every === 0) svg.append(svgEl("text", { class: "ax", x: x(i), y: H - 10, "text-anchor": "middle" }, l));
+    });
+
+    // lines and dots (clipped so they can be revealed left to right); benchmarks drawn first, portfolio on top
+    const plot = svgEl("g", { "clip-path": "url(#reveal)" });
+    series.forEach((s) => plot.append(svgEl("path", { class: s.cls, d: path(s.vals) })));
+    plot.append(svgEl("path", { class: "line-p", d: path(P) }));
+    P.forEach((v, i) => plot.append(svgEl("circle", { class: "dot", cx: x(i), cy: y(v), r: 4 })));
+    svg.append(plot);
+
+    // end-of-line values, nudged apart top-to-bottom so they never overlap
+    const gap = 16;
+    const endPoints = [{ cls: "end", val: pEnd, y: y(pEnd) }]
+      .concat(series.map((s) => ({ cls: "end b", val: s.vals[s.vals.length - 1], y: y(s.vals[s.vals.length - 1]) })))
+      .sort((a, b) => a.y - b.y);
+    for (let i = 1; i < endPoints.length; i++) {
+      if (endPoints[i].y - endPoints[i - 1].y < gap) endPoints[i].y = endPoints[i - 1].y + gap;
+    }
+    const endsGroup = svgEl("g", { class: "ends" });
+    endPoints.forEach((e) => endsGroup.append(svgEl("text", { class: e.cls, x: x(n - 1) + 12, y: e.y + 4 }, pct(e.val))));
+    svg.append(endsGroup);
+
+    host.replaceChildren(svg);
+    if (revealed) showChart(); else svg.querySelector("#reveal-rect").setAttribute("width", 0);
+  }
+
+  function showChart() {
+    const host = $("perf-chart");
+    const rect = host.querySelector("#reveal-rect");
+    const ends = host.querySelector(".ends");
+    if (rect) rect.setAttribute("width", lastW);
+    if (ends) ends.classList.add("show");
+  }
+
+  function playReveal() {
+    revealed = true;
+    if (REDUCED) { showChart(); return; }
+    const t0 = performance.now(), D = 1100;
+    const step = (t) => {
+      const k = Math.min(1, (t - t0) / D);
+      const e = 1 - Math.pow(1 - k, 3);
+      const rect = $("perf-chart").querySelector("#reveal-rect");
+      if (rect) rect.setAttribute("width", lastW * e);
+      if (k < 1) requestAnimationFrame(step); else showChart();
+    };
+    requestAnimationFrame(step);
+  }
+
+  function watchChart() {
+    const host = $("perf-chart");
+    if (!host.querySelector("svg")) return;
+    if ("IntersectionObserver" in window && !REDUCED) {
+      const io = new IntersectionObserver((entries) => {
+        if (entries.some((e) => e.isIntersecting)) { io.disconnect(); playReveal(); }
+      }, { threshold: 0.35 });
+      io.observe(host);
+    } else {
+      revealed = true; showChart();
+    }
+    if ("ResizeObserver" in window) {
+      let timer;
+      new ResizeObserver(() => {
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+          if (Math.max(300, Math.floor(host.clientWidth)) !== lastW) drawChart();
+        }, 120);
+      }).observe(host);
+    }
+  }
+
+  /* ---------- journal ---------- */
+  const FIELDS = [["thesis", "Thesis"], ["entry", "Entry"], ["risk", "Risk"], ["outcome", "Outcome"], ["lesson", "Lesson"]];
+
+  function renderJournal() {
+    const host = $("journal-list");
+    host.replaceChildren();
+    if (!JOURNAL.length) {
+      host.style.borderTop = "0";
+      host.append(el("p", { class: "empty" }, "No entries yet. Add your first position to JOURNAL at the top of the script."));
+      return;
+    }
+    JOURNAL.forEach((e, i) => {
+      const status = e.closed ? "Closed " + e.closed : "Open";
+      const dl = el("dl");
+      FIELDS.forEach(([key, label]) => {
+        if (e[key]) dl.append(el("dt", {}, label), el("dd", {}, e[key]));
+      });
+      host.append(el("details", { class: "entry", open: i === 0, "data-placeholder": !!e.sample },
+        el("summary", {},
+          el("span", { class: "e-name" }, e.name,
+            e.ticker && el("span", { class: "e-tick" }, e.ticker),
+            e.sample && el("span", { class: "tag" }, "Sample")),
+          e.result && el("span", { class: "e-result " + toneFromText(e.result) }, e.result),
+          el("span", { class: "e-meta" }, "Opened " + e.opened + ". " + status + "."),
+          el("span", { class: "e-toggle", "aria-hidden": "true" })
+        ),
+        el("div", { class: "e-body" }, dl)
+      ));
+    });
+  }
+
+  /* ---------- draft banner ---------- */
+  function draftBanner() {
+    const left = document.querySelectorAll("[data-placeholder]").length;
+    if (!left) return;
+    document.body.prepend(el("div", { class: "draft", role: "status" },
+      "Draft: " + left + " sample or placeholder item" + (left === 1 ? "" : "s") + " still on this page. Replace them before you publish."));
+  }
+
+  renderPerformance();
+  watchChart();
+  renderJournal();
+  draftBanner();
+})();
+</script>
+</body>
+</html>
